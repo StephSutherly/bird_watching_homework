@@ -43,6 +43,18 @@ const createRouter = function (collection) {
     });
   });
 
+  // Delete
+  router.delete('/:id', (req, res) => {
+    const id = req.params.id;
+    collection.deleteOne({ _id: ObjectID(id) })
+    .then(results => res.json(results))
+    .catch(error => {
+      console.error(error);
+      res.status(500);
+      res.json({ status: 500, error });
+    });
+  });
+
   return router;
 };
 
